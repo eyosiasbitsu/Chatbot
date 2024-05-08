@@ -1,7 +1,6 @@
 {
   "name": "chatbot",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +15,7 @@
     "gitignore": "^0.7.0",
     "jsonwebtoken": "^9.0.2",
     "openai": "^4.43.0"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
