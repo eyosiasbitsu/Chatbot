@@ -1,6 +1,8 @@
 // services/chatbotService.js
 const openai = require('../config/openai');
 
+let conversationState = {};
+
 async function getGPTResponse(prompt) {
   try {
     const response = await openai.createChatCompletion({
@@ -25,16 +27,73 @@ async function handleListingConversation(userMessage) {
   4. Price
   5. Description
   6. Images (ask to upload a link for simplicity)
-  
+
   Additionally, provide helpful tips and guidance based on trends and ask for confirmation at the end.
 
   User: "${userMessage}"
   Chatbot:
   `;
+
   return await getGPTResponse(prompt);
+}
+
+function updateConversationState(key, value) {
+  conversationState[key] = value;
+}
+
+function getConversationState() {
+  return conversationState;
+}
+
+function resetConversationState() {
+  conversationState = {};
+}
+
+async function handleDynamicQuestions(userMessage) {
+  // Add your logic to dynamically ask questions and collect data
+  if (!conversationState.productType) {
+    updateConversationState('productType', userMessage);
+    return 'What category does your product/service belong to?';
+  }
+
+  if (!conversationState.category) {
+    updateConversationState('category', userMessage);
+    return 'What sub-category (if applicable) does your product/service belong to?';
+  }
+
+  if (!conversationState.subCategory && conversationState.category !== 'N/A') {
+    updateConversationState('subCategory', userMessage);
+    return 'What is the price of your product/service?';
+  }
+
+  if (!conversationState.price) {
+    updateConversationState('price', userMessage);
+    return 'Please provide a description of your product/service.';
+  }
+
+  if (!conversationState.description) {
+    updateConversationState('description', userMessage);
+    return 'Please upload a link to an image of your product/service.';
+  }
+
+  if (!conversationState.images) {
+    updateConversationState('images', [userMessage]);
+    return 'Do you have any other images to add? If not, please type "No".';
+  }
+
+  if (conversationState.images && userMessage.toLowerCase() !== 'no') {
+    conversationState.images.push(userMessage);
+    return 'Do you have any other images to add? If not, please type "No".';
+  }
+
+  return 'All necessary details have been collected. Would you like to confirm your listing?';
 }
 
 module.exports = {
   getGPTResponse,
   handleListingConversation,
+  handleDynamicQuestions,
+  updateConversationState,
+  getConversationState,
+  resetConversationState,
 };

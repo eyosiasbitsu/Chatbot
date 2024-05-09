@@ -1,41 +1,47 @@
 // controllers/chatbotController.js
-const { handleListingConversation } = require('../services/chatbotService');
+const {
+  handleListingConversation,
+  handleDynamicQuestions,
+  getConversationState,
+  resetConversationState,
+  updateConversationState,
+} = require('../services/chatbotService');
+
 const { submitListing } = require('../services/externalApiService');
 const { setAuthToken } = require('../config/externalApi');
 
 async function initiateListing(req, res) {
-  const { message, token } = req.body;
-  setAuthToken(token);
-
+  console.log("Was here");
+  const { message } = req.body;
   const response = await handleListingConversation(message);
   res.json({ message: response });
 }
 
-async function submitListingController(req, res) {
-  const { data, token } = req.body;
-  setAuthToken(token);
-
-  try {
-    const result = await submitListing(data);
-    res.json({ message: 'Listing submitted successfully!', data: result });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+async function handleDynamicQuestioning(req, res) {
+  const { message } = req.body;
+  const response = await handleDynamicQuestions(message);
+  res.json({ message: response });
 }
 
-async function collectFeedback(req, res) {
-  const { message } = req.body;
-  const prompt = `
-  You're a chatbot collecting feedback after guiding a user through a product/service listing process.
-  User: "${message}"
-  Chatbot:
-  `;
-  const response = await handleListingConversation(prompt);
-  res.json({ message: response });
+async function confirmListing(req, res) {
+  const { token } = req.body;
+  await setAuthToken(token);
+
+  try {
+    const listingData = getConversationState();
+    const result = await submitListing(listingData);
+    resetConversationState();
+    res.json({
+      message: `Your listing has been successfully submitted: ${result.id}`,
+      listingData,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error submitting the listing.' });
+  }
 }
 
 module.exports = {
   initiateListing,
-  submitListingController,
-  collectFeedback,
+  handleDynamicQuestioning,
+  confirmListing,
 };

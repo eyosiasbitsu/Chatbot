@@ -1,14 +1,11 @@
 // routes/chatbotRoutes.js
 const express = require('express');
+const { initiateListing, handleDynamicQuestioning, confirmListing } = require('../controllers/chatbotController');
+const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
-const {
-  initiateListing,
-  submitListingController,
-  collectFeedback,
-} = require('../controllers/chatbotController');
 
-router.post('/listing', initiateListing);
-router.post('/submit-listing', submitListingController);
-router.post('/feedback', collectFeedback);
+router.post('/listing/initiate', initiateListing);
+router.post('/listing/dynamic', handleDynamicQuestioning);
+router.post('/listing/confirm', authMiddleware, confirmListing);
 
 module.exports = router;
