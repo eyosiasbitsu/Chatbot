@@ -17,6 +17,7 @@ async function getGPTResponse(prompt) {
 }
 
 async function handleListingConversation(userMessage) {
+  console.log("Was here");
   const prompt = `
   You're a chatbot guiding a user through a listing process for products/services.
   The user will list their product/service in one go.
