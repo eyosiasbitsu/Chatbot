@@ -1,12 +1,26 @@
-
-const express = require('express');
-const chatbotRoutes = require('./routes/chatbotRoutes');
-require('dotenv').config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const path = require("path");
+const { exec } = require("child_process");
 
 const app = express();
-app.use(express.json());
+const PORT = 3000;
 
-app.use('/chat', chatbotRoutes);
+app.use(bodyParser.json());
+app.use(cors());
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Chatbot API running on port ${PORT}`));
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    console.error('Bad JSON:', err);
+    return res.status(400).send({ error: err.message});
+  }
+  next();
+});
+
+const routes = require("./routes");
+app.use(routes);
+
+const server = app.listen(PORT, function () {
+  console.log(`Server running at http://127.0.0.1:${PORT}/`);
+});
