@@ -22,5 +22,5 @@ const routes = require("./routes");
 app.use(routes);
 
 const server = app.listen(PORT, function () {
-  console.log(`Server running at http://127.0.0.1:${PORT}/`);
+  console.log("Server running ....");
 });
