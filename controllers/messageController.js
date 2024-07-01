@@ -9,7 +9,8 @@ const initialText = `You are a chatbot designed to assist users in listing their
                      the required fields are: make, model, year of manufacture, condition, mileage (KM), transmission, color, and price. 
                      After receiving the user’s description, analyze it to determine which of the required fields have already been covered and collect any missing mandatory fields in a conversational manner by receiving them one at a time by giving examples of what those values can be. 
                      When you start collecting the missing filelds, please make sure to ask each fileds one by one. 
-                     At the end of the conversation, summarize the collected information and return it in JSON format for user verification and final confirmation. `;
+                     At the end of the conversation, summarize the collected information and return it in JSON format for user verification and final confirmation. 
+                     never show the information collected before the chat ends`;
 
 let conversationHistory = [
   { 
