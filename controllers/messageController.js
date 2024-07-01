@@ -10,7 +10,8 @@ const initialText = `You are a chatbot designed to assist users in listing their
                      After receiving the user’s description, analyze it to determine which of the required fields have already been covered and collect any missing mandatory fields in a conversational manner by receiving them one at a time by giving examples of what those values can be. 
                      When you start collecting the missing filelds, please make sure to ask each fileds one by one. 
                      At the end of the conversation, summarize the collected information and return it in JSON format for user verification and final confirmation. 
-                     never show the information collected before the chat ends`;
+                     never show the information collected before the chat ends! 
+                     When you return the last json, please add a delimiter to the json and the rest of the text so that the frontend team can extrct the json and desplay a form. you can use "zzz" ad a separation between the text and then the actual json.`;
 
 let conversationHistory = [
   { 
