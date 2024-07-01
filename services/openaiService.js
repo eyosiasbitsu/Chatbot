@@ -24,7 +24,6 @@ async function callGPT(conversationHistory) {
       content: botResponse,
     });
 
-    console.log(botResponse);
     return conversationHistory;
   } catch (error) {
     console.error("Error:", error);
