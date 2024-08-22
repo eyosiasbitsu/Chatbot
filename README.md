@@ -6,12 +6,6 @@ This project is a Node.js-based backend service that enables intelligent convers
 
 The Chatbot API facilitates the development of chatbots by providing a flexible, scalable backend solution. It integrates with the OpenAI API to deliver intelligent responses, allowing developers to create sophisticated conversational agents.
 
-### Key Features:
-- **OpenAI Integration:** Seamlessly integrates with the OpenAI API to generate intelligent responses.
-- **Modular Design:** The API is organized into controllers, routes, and services, making it easy to extend and maintain.
-- **Customizable:** Configure the chatbot's behavior by modifying the controllers and services.
-- **Scalable:** Built on Node.js, allowing for scalable deployment in various environments.
-
 ## Built With
 
 This project is built using the following technologies:
@@ -19,6 +13,12 @@ This project is built using the following technologies:
 * ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node-dot-js&logoColor=white)
 * ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
 * ![OpenAI API](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
+
+### Key Features:
+- **OpenAI Integration:** Seamlessly integrates with the OpenAI API to generate intelligent responses.
+- **Modular Design:** The API is organized into controllers, routes, and services, making it easy to extend and maintain.
+- **Customizable:** Configure the chatbot's behavior by modifying the controllers and services.
+- **Scalable:** Built on Node.js, allowing for scalable deployment in various environments.
 
 ## Installation
 
